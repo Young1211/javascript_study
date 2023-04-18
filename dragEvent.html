@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dragEvent</title>
+    <link rel="stylesheet" href="" />
+    <script
+      src="https://kit.fontawesome.com/6f44eb4d9d.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: #eee;
+        color: #111;
+      }
+      .draggable-elements {
+        display: flex;
+        justify-content: center;
+        margin: 2rem;
+      }
+      /* i.fa-solid {
+        font-size: 3rem;
+        margin-right: 2rem;
+      } */
+
+      .draggable {
+        height: 5rem;
+        width: 5rem;
+        font-size: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0rem 0.5rem;
+        cursor: move;
+        /* border: 3px solid #111; */
+        transition: all 0.2s;
+      }
+
+      .draggable:hover {
+        opacity: 0.5;
+      }
+
+      .droppable {
+        height: 6.5rem;
+        width: 6.5rem;
+        margin: 1rem auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 4rem;
+        font-weight: bold;
+        border: 3px dashed #111;
+        background-color: #fff;
+        transform: border-width 0.2s, transform 0.2s, background-color 0.4s;
+      }
+      .droppable span {
+        font-size: 1.25rem;
+        pointer-events: none;
+      }
+
+      /* Drag and Drop 스타일링 */
+      /* drop을 할 때  droppable-hover 클래스를 생성해줌*/
+
+      .droppable.droppable-hover {
+        border-width: 5px;
+        transform: scale(1.1);
+      }
+      .droppable.dropped {
+        border-style: solid;
+        color: #fff;
+      }
+
+      /* drop을 할 때 droppped 클래스 생성 */
+
+      .droppable.dropped span {
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+      }
+      .draggable.dragged i {
+        pointer-events: none;
+      }
+      .draggable.dragged {
+        user-select: none;
+        opacity: 0.1;
+        cursor: default;
+        display: none;
+      }
+      .draggable.dragged:hover {
+        opacity: 0.1;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="draggable-elements">
+      <i
+        class="fa-solid fa-cat draggable"
+        id="cat"
+        style="color: #ff6384"
+        draggable="true"
+      ></i>
+      <i
+        class="fa-solid fa-dog draggable"
+        id="dog"
+        style="color: #36a2eb"
+        draggable="true"
+      ></i>
+      <i
+        class="fa-solid fa-dove draggable"
+        id="dove"
+        style="color: #ffce56"
+        draggable="true"
+      ></i>
+      <i
+        class="fa-solid fa-fish draggable"
+        id="fish"
+        style="color: #9966ff"
+        draggable="true"
+      ></i>
+      <i
+        class="fa-solid fa-frog draggable"
+        id="frog"
+        style="color: #4bc0c0"
+        draggable="true"
+      ></i>
+    </section>
+    <section class="dropable-elements">
+      <div class="droppable" data-draggable-id="frog">
+        <span>Frog</span>
+      </div>
+      <div class="droppable" data-draggable-id="dove">
+        <span>Bird</span>
+      </div>
+      <div class="droppable" data-draggable-id="cat">
+        <span>Cat</span>
+      </div>
+      <div class="droppable" data-draggable-id="fish">
+        <span>Fish</span>
+      </div>
+      <div class="droppable" data-draggable-id="dog">
+        <span>Dog</span>
+      </div>
+    </section>
+    <script>
+      const draggableElements = document.querySelectorAll(".draggable");
+      const droppableElements = document.querySelectorAll(".droppable");
+
+      //forEach 사용
+      draggableElements.forEach((elem) => {
+        elem.addEventListener("dragstart", dragStart);
+        // elem.addEventListener("drag", drag)
+        // elem.addEventListener("dragend", dragEnd);;
+      });
+
+      droppableElements.forEach((elem) => {
+        elem.addEventListener("dragenter", dragEnter);
+        elem.addEventListener("dragover", dragOver);
+        elem.addEventListener("dragleave", dragLeave);
+        elem.addEventListener("drop", drop);
+      });
+
+      function dragStart(e) {
+        //console.log("dragging..");
+        console.log(e.target.id);
+        e.dataTransfer.setData("Text", e.target.id);
+        //drag한 요소의 id를 가져옴
+        //만약 dog의 아이콘을 가져왔다면 -> e.target,id
+      }
+      function dragEnter(e) {
+        if (!e.target.classList.contains("dropped")) {
+          e.target.classList.add("droppable-hover");
+        }
+      }
+
+      function dragLeave(e) {
+        if (!e.target.classList.contains("dropped")) {
+          e.target.classList.remove("droppable-hover");
+        }
+      }
+
+      function dragOver(e) {
+        if (!e.target.classList.contains("dropped")) {
+          e.preventDefault();
+        }
+      }
+      function drop(e) {
+        e.preventDefault();
+        e.target.classList.remove("dropable-hover");
+        const draggableElementData = e.dataTransfer.getData("text");
+        //type이 text인 데이터들을 가져오기
+        const droppableElementData = e.target.getAttribute("data-draggable-id");
+        if (draggableElementData === droppableElementData) {
+          e.target.classList.add("dropped");
+          const draggableElement =
+            document.getElementById(draggableElementData);
+          e.target.style.backgroundColor = draggableElement.style.color;
+          draggableElement.classList.add("dragged");
+          draggableElement.setAttribute("draggable", "false");
+          e.target.insertAdjacentHTML(
+            "afterbegin",
+            `<i class="fas fa-${draggableElementData}"></i>`
+          );
+        }
+      }
+    </script>
+  </body>
+</html>
+
+<!-- id가 frog라면, span 태그 안에는 frog가 들어가야함
+        data-draggable-id 이용함 
+-->
