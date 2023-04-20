@@ -1,0 +1,158 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  box-sizing: border-box;
+}
+
+ul,
+li,
+a {
+  list-style: none;
+  padding-left: 0;
+  text-decoration: none;
+}
+
+/* ul {
+  padding-left: 0;
+} */
+
+/* header */
+/* header에 padding을 줘야함 */
+a:link {
+  box-shadow: none;
+  text-decoration: none;
+}
+
+body {
+  background-color: #ebebeb;
+}
+
+header {
+  background-color: black;
+  height: 50px;
+  color: white;
+  padding: 10px;
+  display: flex;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: lighter;
+  margin-right: 20px;
+}
+
+.menu {
+  display: flex;
+  color: white;
+  text-align: center;
+  align-content: center;
+}
+.menu li {
+  margin-right: 10px;
+  color: #ccc;
+}
+.menu li a {
+  color: #ccc;
+}
+
+/* .show {
+  color: white;
+} */
+
+/* main */
+.main {
+  padding: 20px;
+}
+
+/* button */
+button {
+  border: 1px solid black;
+  padding: 1px;
+}
+
+/* 장바구니 리스트 */
+.shop_List {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+}
+.shop_List .item {
+  margin-right: 20px;
+  background-color: white;
+  box-sizing: border-box;
+  padding: 20px;
+}
+.shop_List .item:nth-last-child() {
+  margin-right: 0;
+}
+.item_img {
+  margin-bottom: 20px;
+  width: 100%;
+}
+.item_img img {
+  width: 100%;
+}
+
+/* 리스트의 css */
+/* 상품의 타이틀 */
+.item_title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* 제품의 업체 */
+.item_shop {
+  font-size: 0.8rem;
+  color: #919191;
+}
+
+/* 제품의 가격 */
+.item_price {
+}
+
+.buy_btn {
+  padding: 2px 10px;
+  color: white;
+  background-color: black;
+}
+
+/* 장바구니 */
+.cart {
+  margin-top: 20px;
+  width: 100%;
+  height: 70%;
+  background-color: #ccc;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+}
+.cart p {
+  font-weight: bold;
+}
+
+.cart_drop {
+  width: 100%;
+  height: 90%;
+  background-color: black;
+  color: white;
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+}
+
+.drag_text {
+  font-size: 2rem;
+}
+
+.search_text {
+  transition: all 1s;
+}
+
+/* margin, padding - 20px 처럼 자주 쓰는 스타일들은
+따로 변수에다가 담아놓고 사용하는 게 좋음
+*/
