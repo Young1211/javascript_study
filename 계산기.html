@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>계산기</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      #result {
+        width: 180px;
+        height: 50px;
+        margin: 5px;
+        text-align: right;
+      }
+
+      #operator {
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        text-align: center;
+      }
+      button {
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <input readonly id="operator" />
+    <input readonly type="number " id="result" />
+    <div class="row">
+      <button id="num-7">7</button>
+      <button id="num-8">8</button>
+      <button id="num-9">9</button>
+      <button id="plus">+</button>
+    </div>
+    <div class="row">
+      <button id="num-4">4</button>
+      <button id="num-5">5</button>
+      <button id="num-6">6</button>
+      <button id="minus">-</button>
+    </div>
+    <div class="row">
+      <button id="num-1">1</button>
+      <button id="num-2">2</button>
+      <button id="num-3">3</button>
+      <button id="divide">/</button>
+    </div>
+    <div class="row">
+      <button id="clear">C</button>
+      <button id="num-0">0</button>
+      <button id="calaulate">=</button>
+      <button id="multiply">*</button>
+    </div>
+  </body>
+  <script>
+    //숫자와 연산자를 담는 버튼
+    let numOne = "";
+    let operator = "";
+    let numTwo = "";
+
+    const $operator = document.querySelector("#operator");
+    const $result = document.querySelector("#result");
+
+    //함수로 빼기
+    const onClickNumber = (event) => {
+      if (!operator) {
+        //조건문에다가 !를 붙이면 서로 바꿀 수 있음
+        //operator가 없을 때는 numOne에 값을 집어넣는다
+        numOne += event.target.textContent;
+        $result.value += event.target.textContent;
+        return;
+      }
+      //return이 나오는 순간부터 종료
+      if (!numTwo) {
+        $result.value = "";
+      }
+      numTwo += event.target.textContent;
+      $result.value += event.target.textContent;
+
+      //연속으로 계산할 수 있게, 두 번째 값이 들어왔을 때쯤
+      //resultFunc() 호출(계산용)
+      //$operator.value = "";
+      //resultFunc();
+    };
+
+    document.querySelector("#num-0").addEventListener("click", onClickNumber);
+    document.querySelector("#num-1").addEventListener("click", onClickNumber);
+    document.querySelector("#num-2").addEventListener("click", onClickNumber);
+    document.querySelector("#num-3").addEventListener("click", onClickNumber);
+    document.querySelector("#num-4").addEventListener("click", onClickNumber);
+    document.querySelector("#num-5").addEventListener("click", onClickNumber);
+    document.querySelector("#num-6").addEventListener("click", onClickNumber);
+    document.querySelector("#num-7").addEventListener("click", onClickNumber);
+    document.querySelector("#num-8").addEventListener("click", onClickNumber);
+    document.querySelector("#num-9").addEventListener("click", onClickNumber);
+
+    //=를 눌렀을 때, 연산자를 이용해 두 개의 값을 계산한 결과값을 계산하는 함수
+
+    const onClickOparator = (op) => () => {
+      if (numTwo) {
+        //numTwo가 "" 빈 값이면 안됨. 빈 값 -> false
+        switch (operator) {
+          case "+":
+            $result.value = Number(numOne) + Number(numTwo);
+            break;
+          case "-":
+            $result.value = Number(numOne) - Number(numTwo);
+            break;
+          case "*":
+            $result.value = Number(numOne) * Number(numTwo);
+            break;
+          case "/":
+            $result.value = Number(numOne) / Number(numTwo);
+            break;
+        }
+        $operator.value = "";
+        numOne = $result.value;
+        operator = "";
+        numTwo = "";
+      }
+      if (numOne) {
+        operator = op;
+        $operator.value += op;
+      }
+
+      //-1 - -3처럼 음수 앞에 - 연산자가 올 때 NaN 에러가 발생
+      if (op === "-") {
+        if (!numOne) {
+          numOne += "-";
+          $result.value = "-";
+        }
+        if (!numTwo) {
+          numTwo += "-";
+          $result.value = "-";
+        }
+      }
+    };
+
+    // else {
+    //   alert("숫자를 먼저 입력하세용");
+    // }
+
+    // const onClickOparator = (op) => {
+    //   let count = 0;
+    //   return () => {
+    //     if (numOne) {
+    //       count++;
+    //       operator = op;
+    //       $operator.value += op;
+    //     } else {
+    //       alert("숫자를 먼저 입력하세용");
+    //     }
+    //     console.log(count);
+    //     if (count >= 2) {
+    // $operator.value = "";
+    // resultFunc();
+    //     }
+    //   };
+    // };
+
+    document
+      .querySelector("#plus")
+      .addEventListener("click", onClickOparator("+"));
+    document
+      .querySelector("#minus")
+      .addEventListener("click", onClickOparator("-"));
+    document
+      .querySelector("#divide")
+      .addEventListener("click", onClickOparator("/"));
+    document
+      .querySelector("#multiply")
+      .addEventListener("click", onClickOparator("*"));
+
+    //초기화(clear) 버튼
+    //변수의 값을 초기화해줌
+
+    document.querySelector("#calaulate").addEventListener("click", resultFunc);
+    function resultFunc() {
+      //numTwo가 있을 경우에만
+      if (numTwo) {
+        //numTwo가 "" 빈 값이면 안됨. 빈 값 -> false
+        switch (operator) {
+          case "+":
+            $result.value = Number(numOne) + Number(numTwo);
+            break;
+          case "-":
+            $result.value = Number(numOne) - Number(numTwo);
+            break;
+          case "*":
+            $result.value = Number(numOne) * Number(numTwo);
+            break;
+          case "/":
+            $result.value = Number(numOne) / Number(numTwo);
+            break;
+        }
+        $operator.value = "";
+        numOne = $result.value;
+        operator = "";
+        numTwo = "";
+      } else {
+        alert("숫자를 먼저 입력하세욤");
+      }
+    }
+
+    document.querySelector("#clear").addEventListener("click", () => {
+      numOne = "";
+      numTwo = "";
+      operator = "";
+      $operator.value = "";
+      $result.value = "";
+    });
+  </script>
+</html>
+
+<!-- 
+
+1. 계산기 CSS 잡기
+-일단 아이폰 계산기의 디자인을 빌리고 싶음
+
+2. js 
+-버튼을 하나하나 조작할 수 있게
+-각 버튼에 id를 달아주기  
+-data-id도 생각해보기
+-이벤트 위임 / 버블링 문법 고려
+-자바스크립트가 조작할 것 같으면
+id나 클래스를 달기
+
+border와 padding까지 합하여 
+크기를 정함 -> border-box
+margin은 포함이 안됨
+
+readonly
+-키보드로 글자를 쓸 수 없지만, 자바스크립트로는 글자를 사용할 수 있음
+-처음에는 버튼 하나하나에 이벤트 리스너를 걸어줌
+
+clear
+-계산 초기화
+
+숫자 버튼을 클릭할 때 코드 작성
+
+
++를 누르지 않은 상태에서 0 
+눌렀다면 두 번째 변수에 0을 넣어주기
+
+-음수를 넣으려면 
+if문을 집어넣어야함 
+만약 입력받은 값이 -라면,
+numOne이나 numTwo에 -를 추가하기
+문자열 결합이므로 
+"-" + '5' = -5가 됨
+
+
+
+ -->
