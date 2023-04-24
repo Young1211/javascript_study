@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>this</title>
+  </head>
+  <body>
+    <button id="btn">클릭</button>
+  </body>
+  <script>
+    //웹 브라우저에서는 window 객체가 전역 객체
+    console.log(this); //window
+    console.log(this === window); //true
+
+    //함수의 this
+    //함수 내부에서 this의 값은 함수를 호출한 방법에 의해 좌우됨
+
+    function fun() {
+      console.log(this);
+    }
+    fun(); //함수의 값 그 자체
+
+    //객체의 메서드
+    //함수를 어떤 객체의 메서드로 호출하면 this의 값은 그 객체를 사용
+    let student = {
+      name: "tom",
+      age: 15,
+      introduce: function () {
+        console.log(this); //{name: 'tom', age: 15, introduce: ƒ}
+        console.log(`이름은 ${this.name}이며, 나이는 ${this.age}입니다`);
+      },
+    };
+    student.introduce();
+
+    //생성자의 this
+    //new를 붙이면 this가 생성자를 통해 인스턴스가 됨
+
+    class Person {
+      constructor(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      introduce() {
+        console.log(this.name, this.age);
+      }
+    }
+    const person1 = new Person(32, "jin");
+    person1.introduce(); //32 'jin'
+
+    //이벤트 리스너의 this
+    const btn = document.querySelector("#btn");
+    // btn.addEventListener("click", function () {
+    //   console.log(this);
+    //   console.log(this === window);
+    // });
+    //여기서 this는 클릭한 버튼을 말함
+    //이벤트가 발생할 때 내부적으로 this가 바뀜
+
+    //화살표 함수 사용
+    btn.addEventListener("click", () => {
+      console.log(this);
+    });
+  </script>
+</html>
