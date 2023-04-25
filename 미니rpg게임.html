@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나만의 텍스트 RPG</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(255, 247, 247);
+      }
+      .game-box {
+        width: 65%;
+        height: 90%;
+        display: flex;
+        /* justify-content: center;
+        align-items: center; */
+        background-color: #ef6001;
+        border-radius: 5%;
+        border-bottom-left-radius: 10%;
+        border-bottom-right-radius: 10%;
+        position: relative;
+      }
+      /* black- screen */
+      .black-screen {
+        width: 90%;
+        height: 50%;
+        background-color: #050300;
+        position: absolute;
+        margin-top: 35px;
+        margin-left: 25px;
+        margin-right: 25px;
+        border-radius: 5px;
+        border-bottom-left-radius: 10%;
+        border-bottom-right-radius: 10%;
+        /* display: flex;
+        justify-content: center;
+        align-items: center; */
+      }
+
+      #start-screen {
+        /* text-align: center;
+        display: flex;
+        flex-direction: column;
+        padding: 0px; */
+        background-color: #656565;
+        width: 70%;
+        height: 60%;
+        z-index: 10;
+        margin-top: 12%;
+        margin-left: 15%;
+        margin-right: 10%;
+      }
+      .player-box {
+        margin-top: 10px;
+        display: flex;
+        height: 40px;
+        box-sizing: border-box;
+      }
+      .player-text {
+        font-size: 20px;
+        font-weight: bold;
+      }
+      /* input 창 꾸미기 */
+      /* input[type="text"] {
+        border: 0;
+      } */
+      .player-make {
+        background-color: rgba(249, 249, 249, 0.964);
+        border: 0;
+        /* color: white; */
+        width: 150px;
+        border-radius: 5px;
+        font-size: 20px;
+      }
+      .player-make-btn {
+        border-style: none;
+        margin-left: 5px;
+        background-color: orange;
+        box-shadow: 2px black;
+        color: white;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="game-box">
+      <div class="black-screen">
+        <form id="start-screen">
+          <!-- <span class="player-text">플레이어를 생성하세요</span>
+          <div class="player-box">
+            <input type="text" id="player-input" class="player-make" />
+            <button class="player-make-btn">만들기</button>
+          </div> -->
+        </form>
+      </div>
+    </div>
+  </body>
+  <script></script>
+</html>
