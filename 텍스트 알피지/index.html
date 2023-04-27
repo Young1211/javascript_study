@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나만의 텍스트 RPG</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&family=Roboto:wght@500&family=Sigmar&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/@kfonts/neodgm/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style></style>
+  </head>
+  <body>
+    <div class="game-box">
+      <div class="black-screen">
+        <div class="game-content">
+          <form id="start-screen">
+            <span class="player-text">플레이어를 생성하세요</span>
+            <div class="player-box">
+              <input type="text" id="player-input" class="player-make" />
+              <button class="player-make-btn">Start!</button>
+            </div>
+          </form>
+          <!-- 게임 시작시 메뉴 -->
+          <!-- start-screen이 display:none으로 바뀌었을 때 띄워줘야함 -->
+          <div id="player-stat" style="display: block">
+            <span id="player-name"></span>
+            <span id="player-level"></span>
+            <span id="player-hp"></span>
+            <span id="player-xp"></span>
+            <span id="player-att"></span>
+          </div>
+          <div id="game-menu" style="display: block">
+            <div id="game-text" class="menu-text">
+              <button id="menu-1" class="btn game" value="1">1. 모험</button>
+              <button id="menu-2" class="btn game" value="2">2. 휴식</button>
+              <button id="menu-3" class="btn game" value="3">3. 종료</button>
+            </div>
+          </div>
+          <!--전투 메뉴 -->
+          <div id="battle-menu" style="display: none">
+            <div id="battle-text" class="menu-text">
+              <button id="battle-1" class="btn battle" value="1">
+                1. 공격
+              </button>
+              <button id="battle-2" class="btn battle" value="2">
+                2. 회복
+              </button>
+              <button id="battle-3" class="btn battle" value="3">
+                3. 도망
+              </button>
+            </div>
+          </div>
+          <div id="message-box">
+            <!-- 몬스터 -->
+            <div id="monster-stat">
+              <span id="monster-name"></span>
+              <span id="monster-hp"></span>
+              <span id="monster-attack"></span>
+            </div>
+            <div>
+              <!-- <span>슬라임이 나타났다 </span><br />
+              <span>어떻게 하시겠습니까?</span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- button 만들기 -->
+      <div class="btn-content">
+        <div class="btn-vertical"></div>
+        <div class="btn-horizontal"></div>
+        <!-- SELECT와 START 버튼 -->
+        <ul class="btn-menu">
+          <li class="reset-btn">
+            <span>SELECT</span>
+          </li>
+          <li class="select-btn">
+            <span>START</span>
+          </li>
+        </ul>
+        <div class="btn-AB"></div>
+      </div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>
