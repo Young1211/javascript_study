@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map 객체</title>
+  </head>
+  <body>
+    <script>
+      // Map 객체 - 키와 쌍으로 이루어진 컬렉션
+      //Map 객체의 생성
+      //-Map 생성자 함수로 생성함, 인수를 전달하지 않으면 빈 객체 생성
+
+      const map = new Map();
+      console.log(map); //Map(0) {size: 0}
+
+      //이터러블을 인수로 전달받아 Map 객체를 생성
+      //이 때 인수로 전달되는 이터러블은 키와 값의 쌍으로 이루어진 요소로 구성
+
+      const map1 = new Map([
+        ["key1", "value1"],
+        ["key2", "value2"],
+      ]);
+      console.log(map1);
+      //Map(2) {'key1' => 'value1', 'key2' => 'value2'}
+
+      //Map 생성자 함수의 인수로 전달한 이터러블에 중복된 키를 갖는 요소가 존재하면
+      //값이 덮어써짐
+      //Map 객체에느 중복된 키를 갖는 요소가 존재할 수 없음
+
+      const map2 = new Map([
+        ["key1", "value1"],
+        ["key1", "value2"],
+      ]);
+      console.log(map2); //) {'key1' => 'value2'}
+
+      //요소 개수 확인 - Map.prototype.size
+      //size 프로퍼티는 접근자 프로퍼티이므로 숫자를 할당하여 Map 객체의 요소 개수를 변경할 수 없음
+      const { size } = new Map([
+        ["key1", "value1"],
+        ["key2", "value2"],
+      ]);
+      console.log(size); //2
+
+      //요소 추가 - set 메서드
+      const mapSet = new Map();
+      console.log(mapSet); //Map(0) {size: 0}
+
+      mapSet.set("key1", 1);
+      console.log(mapSet); //Map(1) {'key1' => 1}
+
+      //set 메서드는 새로운 요소가 추가된 Map 객체를 반환함
+      //따라서 set 메서드를 호출한 후에 set 메서드를 연속으로 호출 가능함
+
+      const mapDouble = new Map();
+      mapDouble.set("key1", 1).set("key2", 2);
+      console.log(mapDouble); //(2) {'key1' => 1, 'key2' => 2}
+      //Map 객체에는 중복된 키를 갖는 요소가 존재할 수 없기 때문에
+      //중복된 키를 갖는 요소를 추가하면 값이 덮어써짐, 에러는 발생하지 않는다
+
+      const mapDouble2 = new Map();
+      mapDouble2.set("key1", 1).set("key2", 2).set("key2", 2);
+      console.log(mapDouble2); //(2) {'key1' => 1, 'key2' => 2}
+
+      //객체는 문자열 또는 심벌값만 키로 사용할 수 있지만 Map 객체는 키 타입에 제한이 없음
+      //객체를 포함한 모든 값을 키로 사용 가능함
+
+      const mapObj = new Map();
+
+      const lee = { name: "Lee" };
+      const kim = { name: "Kim" };
+      //객체도 키로 사용할 수 있음
+      mapObj.set(lee, "developer").set(kim, "desinger");
+      console.log(mapObj); //2) {{…} => 'developer', {…} => 'desinger'}
+
+      //요소 취득 - get 메서드
+      //Map 객체에서 특정 요소를 취득하려면 Map.prototype.get 메서드 사용
+      //get 메서드의 인수로 키를 전달하면 Map 객체에서 인수로 전달한 키를 갖는 값을 반환
+      //만약 Map 객체에서 인수로 전달한 키를 갖는 요소가 존재하지 않으면
+      //undefined 전달
+
+      console.log(mapObj.get(lee)); //developer
+      console.log(mapObj.get("key")); //undefined
+
+      //요소 존재 여부 확인 - has 메서드
+      //특정 요소가 존재하는지 확인하려면 has 메서드 사용
+      //특정 요소의 존재 여부를 나타내는 불리언 값을 반환
+
+      console.log(mapObj.has(lee)); //true
+      console.log(mapObj.has("key")); //false
+
+      //요소 삭제 - delete
+      //map 객체의 요소를 삭제하려면 delte 메서드 사용
+      //삭제 성공 여부를 나타내는 boolean 값 반환
+      const mapDelte = new Map();
+      mapDelte.set(lee, "developer").set(kim, "desinger");
+      console.log(mapDelte); //Map(2) {{…} => 'developer', {…} => 'desinger'}
+      mapDelte.delete(lee);
+      console.log(mapDelte); // {{…} => 'desinger'}
+
+      //존재하지 않는 키로 Map 객체의 요소를 삭제하려고 하면 무시
+      //delete 메서드는 삭제 성공 여부를 나타내는 boolean 값을 반환함
+      //따라서 set 메서드와 달리 연속으로 호출(메서드 체이닝)불가
+
+      //요소 일괄 삭제 - clear
+      //   const mapClear = new Map();
+
+      //   const na = { name: "Na" };
+      //   const choi = { name: "Choi" };
+
+      //   mapClear.set(na, "developer").set(choi, "desinger");
+      //   console.log(mapClear);
+
+      //   mapClear.clear();
+      //   console.log(mapClear); //Map(0) {size: 0}
+
+      //요소 순회
+      //Map 객체의 요소를 순회하려면 Set.prototype.forEach 메서드 사용
+      //Array.prototype.array와 유사하게 콜백 함수와 forEach 메서드의 콜백 함수 내부에서
+      //this로 사용될 객체(옵션)을 인수로 전달함
+
+      //첫 번째 인수 - 현재 순회 중인 요소값
+      //두 번째 인수 - 현재 순회 중인 요소값
+      //세 번째 인수 - 현재 순회 중인 ㅡ메 객체 자체
+
+      //Map 객체는 이터러블이므로 for...of 문으로 순회할 수 있으며
+      //스프레드 문법. 배열 디스트럭처링 하랑의 대상이 될 수도 있음
+
+      const na = { name: "Na" };
+      const choi = { name: "Choi" };
+
+      const map3 = new Map([
+        [na, "developer"],
+        [choi, "desinger"],
+      ]);
+      map3.forEach((v, k, map) => console.log(v.k, map));
+
+      for (const entry of map3) {
+        console.log(entry); //[{…}, 'developer'], (2) [{…}, 'desinger']
+      }
+
+      console.log([...map3]); //(2) [Array(2), Array(2)]
+
+      const [a, b] = map3; //) [{…}, 'developer']
+      console.log(a, b); // [{…}, 'desinger']
+
+      //Map 객체는 요소의 순서에 의미를 갖지는 않지만 Map 객체를 순회하는 순서는 요소가 추가된 순서를 따름
+
+      //map 객체를 이용한 알고리즘 문제
+      //학급 회장을 뽑는데, 후보가 기호 A,B,C,D,E가 있음
+      //투표 용지에는 반 학생들이 자기가 선택한 후보의 기호가 적혀있고,
+      //선생님은 기호를 발표 중
+      //발표가 끝난 후, 어떤 기호의 후보가 학급회장이 되었는지 출력하는 프로그램을 작성
+      //득표수가 많은 후보가 학급회장이 됨
+
+      //map 객체를 이용
+      //후보들은 map의 key가 됨, 그리고 득표수는 value 값이 됨
+      //for-of 반복문을 돌면서 용지에 특정 요소가 있나 확인
+      //만약 없으면 set 메서드를 통해 요소를 추가
+      //있다면(중복이라면) 기존 값에 덮어씌움(value)
+      function stuPresident(str) {
+        //map 객체를 만듦
+        let map = new Map();
+        let answer;
+        for (let i of str) {
+          console.log(i);
+          if (map.has(i)) {
+            //똑같은 후보를 뽑았을 경우에는 값을 덮어씌움 - 카운팅
+            map.set(i, map.get(i) + 1);
+            //i는 key, 두 번째 인자 - value 값
+            //i(알파벳, 즉 key 값을 가져와서, 숫자에 1을 증가)
+          } else {
+            //해당 요소가 없다면, set 메서드를 통해 새로운 요소 추가
+            map.set(i, 1);
+          }
+        }
+        console.log(map); //Map(5) {'B' => 3, 'A' => 3, 'C' => 5, 'D' => 2, 'E' => 2}
+        //for of를 이용한 순회 -> max 값 이용함
+        let max = Number.MIN_SAFE_INTEGER;
+
+        for (let [key, val] of map) {
+          if (val > max) {
+            max = val;
+            answer = key;
+          }
+        }
+        return answer;
+      }
+
+      var str = "BACBACCACCBDEDE";
+      console.log(stuPresident(str)); //C가 학생회장
+    </script>
+  </body>
+</html>
