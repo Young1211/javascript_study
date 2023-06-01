@@ -2,11 +2,33 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 30px;
+  background-color: rgb(255, 152, 152);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.title span {
+  font-size: 30px;
+  font-family: "Josefin Sans", sans-serif;
+  color: rgb(255, 122, 122);
+}
+.title span :hover {
+  color: lightcoral;
 }
 
 .todo-list {
+  padding: 30px;
   width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-sizing: border-box;
+  border-radius: 20px;
 }
 
 .todo-form {
@@ -27,7 +49,7 @@ body {
 } */
 
 /* 버튼의 스타일링 */
-input,
+.todo-form input,
 button {
   border: 1px solid rgb(255, 199, 199);
   border-radius: 8px;
@@ -39,12 +61,19 @@ button {
   height: 35px;
   background-color: lightcoral;
   color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(255, 91, 91);
 }
 
 ul {
   list-style: none;
-  margin: 20px 10px;
+  margin: 20px 0px;
   padding: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* li 태그도 display : flex */
@@ -57,4 +86,24 @@ li {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/* search box*/
+.searchBox {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.searchBox input {
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-style: none;
+  border-bottom: 1px solid rgb(255, 205, 205);
+}
+
+.active {
+  text-decoration: line-through;
 }

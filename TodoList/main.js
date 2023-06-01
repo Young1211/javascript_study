@@ -3,9 +3,11 @@ const todo_form = document.querySelector(".todo-form");
 const todo_btn = document.querySelector(".todo-btn");
 const todo_input = document.querySelector(".todo-input");
 const todo_item = document.querySelector(".todo-item");
+const todo_search = document.querySelector(".todo-search");
 
 //todos에는 각각의 아이템의 정보가 들어감
 let todos = [];
+let listSwitch = false;
 
 //리스트 뿌리는 함수
 //로컬 스토리지 저장 함수
@@ -16,6 +18,37 @@ const localSave = () => {
 };
 
 //로컬 스토리지에 저장을 하기 위해서 todo 객체를 생성해준다
+
+//검색 필터링 함수
+const searchItem = (e) => {
+  const search = e.target.value;
+  //filter
+  //대소문자 구별 방지 -> 소문자로 바꿔줌
+  const searchTodo = todos.filter(
+    (todo) => todo.text.toLowerCase().indexOf(search.toLowerCase()) !== -1
+  );
+  renderItem(searchTodo);
+};
+
+const renderItem = (todo) => {
+  todo_item.textContent = "";
+  todo.map((it) => {
+    createItem(it);
+  });
+};
+
+//upDate 함수
+const updateItem = (e) => {
+  //클릭한 영역에만 class추가
+  //span 태그에 .active 클래스 생성
+  let target = e.target;
+  if (!target.classList.contains("active")) {
+    //active 클래스가 존재할 경우에
+    target.classList.add("active");
+  } else {
+    target.classList.remove("active");
+  }
+};
 
 //아이템  함수
 const deleteItem = (e) => {
@@ -43,9 +76,12 @@ const createItem = (todo) => {
     btn.addEventListener("click", deleteItem);
     li.appendChild(span);
     li.appendChild(btn);
-    //아이디 값 지정
+    //search 함수
+    todo_search.addEventListener("input", searchItem);
     li.id = todo.id;
     todo_item.appendChild(li);
+    //upDate 함수
+    span.addEventListener("click", updateItem);
   }
 };
 
@@ -62,6 +98,7 @@ const submitHandler = (e) => {
   todos.push(todo);
   localSave();
   createItem(todo);
+  todo_input.value = "";
   //아이템 생성 함수
 };
 //form -> submit
