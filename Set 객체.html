@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>set과 map</title>
+  </head>
+  <body>
+    <script>
+      //모던 자바스크립트 딥다이브 참고
+
+      //set - 중복되지 않는 유일한 값들의 집합
+      //수학적 집합을 구현하기 위한 자료구조
+
+      //set 객체는 생성자 함수로 생성
+      //인수를 전달하지 않으면 빈 Set 객체 생성
+
+      const set = new Set();
+      console.log(set); //빈 객체이므로 아무것도 없음
+
+      const set1 = new Set([1, 2, 3]);
+      console.log(set1); //Set(3) {1, 2, 3}
+
+      const set2 = new Set("hello");
+      console.log(set2); //4) {'h', 'e', 'l', 'o'} 중복 제거
+
+      //배열에서 중복된 요소를 제거
+      //filter로 제거하는 방법
+      //filter의 인덱스 번호인 i와 indexOf 함수를 이용한다
+      //중복이 아닌 값들은 인덱스 번호와 indexOf로 반환된 값이 같으므로
+      //이를 이용해서 중복된 값을 제거한다!
+
+      function uniq(arr) {
+        let uniqArr = arr.filter((it, i) => i === arr.indexOf(it));
+        return uniqArr;
+      }
+      let arr = [4, 5, 2, 4, 3, 2, 2, 1, 3];
+      console.log(uniq(arr)); //5) [4, 5, 2, 3, 1]
+
+      //set을 이용한 방법
+      const uniq1 = (array) => [...new Set(array)];
+      console.log(uniq1(arr)); //(5) [4, 5, 2, 3, 1]
+
+      //요소 개수 확인
+      //Set 객체의 요소 개수를 확인할 때
+      //Set.prototype.size 프로퍼티를 사용함
+
+      const { size } = new Set([1, 2, 3, 3]);
+      console.log(size); // 3
+      //set 프로퍼티는 setter 함수 없이 getter 함수만 존재하는 접근자 프로퍼티
+      //따라서 size 프로퍼티에 숫자를 할당하여 Set 객체의 요소 개수를 변경하지 못함
+
+      //요소 추가
+      //set 객체에 요소를 추가할 때 Set.prototype.add 메서드 사용
+
+      // const set3 = new Set();
+      // console.log(set3); //Set(0) {size: 0}
+      // set3.add(1);
+      // console.log(set3); //1
+
+      //add 메서드는 새로운 요소가 추가된 Set 객체를 반환
+      //add 메서드를 호출한 후에, add 메서드를 호출할 수 있음
+
+      // const set4 = new Set();
+      // set4.add(1).add(2);
+      // console.log(set4); //Set(2) {1, 2}
+
+      //set 객체에 중복된 요소의 추가는 허용되지 않음
+      //이 때 에러가 발생하지는 않고 무시됨
+
+      const set5 = new Set();
+      set5.add(1).add(2).add(2);
+      console.log(set5); //Set(2) {1, 2}
+
+      //일치 비교 연산자 ===를 사용하면 NaN과 NaN을 다르다고 평가한다
+      //하지만 SEt 객체는 같다고 평가하여 중복 추가를 허용하지 않는다
+      //+0 / -0은 일치 비교 연산자 ===와 마찬가지로 같다고 평가하여 중복 추가를 허용하지 않는다
+
+      const setTest = new Set();
+      console.log(NaN === NaN); //false
+      console.log(0 === -0); //true
+
+      setTest.add(NaN).add(NaN);
+      console.log(setTest); //Set(1) {NaN}
+
+      setTest.add(0).add(-0);
+      console.log(setTest); //2) {NaN, 0}
+      //같다고 평가하여 중복 추가를 허용하지 않는다
+
+      //Set 객체는 객체나 배열과 같이 자바스크립트의 모든 값을 요소로 저장 가능
+
+      //요소 존재 여부 확인 - has 메서드
+      //-Set 객체에 특정 요소가 존재하는지 확인하려면
+      //Set.prototype.has 메서드를 사용
+      //has 메서드는 특정 요소의 존재 여부를 나타내는 불리언 값을 반환
+
+      const setHas = new Set([1, 2, 3]);
+      console.log(setHas.has(2)); //true
+      console.log(setHas.has(4)); //false
+
+      //요소 삭제 - Delete
+      //특정 요소를 삭제하는 메서드, 삭제 성공 여부를 나타내는 boolean 값을 나타냄
+
+      const setDelete = new Set([1, 2, 3]);
+      setDelete.delete(2);
+      console.log(setDelete); //Set(2) {1, 3}
+      //존재하지 않는 Set 객체의 요소를 삭제하려고 하면 에러 없이 무시됨
+
+      setDelete.delete(0);
+      // console.log(setDelete); /Set(2) {1, 3}
+
+      //delete 메서드는 삭제 성공 여부를 나타내는 불리언 값을 반환하기 때문에
+      //set 객체를 반환하는 add 메서드와 달리 연속적으로 호출할 수 없음
+      //setDelete.delete(1).delete(3); //delete is not a function
+
+      //요소 일괄 삭제 - clear
+      //Set 객체의 모든 요소를 일괄 삭제하는 clear 메서드
+      //항상 undefined를 반환함
+
+      const setClear = new Set([1, 2, 3]);
+      setClear.clear();
+      console.log(setClear); //Set(0) {size: 0}
+
+      //요소 순회
+      //set 객체의 요소를 순회하려면 Set.prototype.forEach 메서드 사용
+      //Array.prototype.array와 유사하게 콜백 함수와 forEach 메서드의 콜백 함수 내부에서
+      //this로 사용될 객체(옵션)을 인수로 전달함
+
+      //첫 번째 인수 - 현재 순회 중인 요소값
+      //두 번째 인수 - 현재 순회 중인 요소값
+      //세 번째 인수 - 현재 순회 중인 Set 객체 자체
+
+      //Array.prototype.array 콜백 함수는 두 번째 인수로 현재 순회 중인 요소의 인덱스를
+      //전달받지만, Set 객체는 순서에 의미가 없어 배열과 같이 인덱스를 갖지 않음
+
+      const setForEach = new Set([1, 2, 3]);
+      setForEach.forEach((v, v2, set) => {
+        console.log(v, v2, set);
+      });
+
+      //Set 객체는 이터러블이기 때문에 for..of로 순회 가능함
+      const setOf = new Set([1, 2, 3]);
+      for (let i of setOf) {
+        console.log(i); // 1 2 3
+      }
+
+      //이터러블이기 대문에 스프레드 문법의 대상이 될 수 있음
+      console.log([...setOf]); //(3) [1, 2, 3]
+
+      //배열 디스트럭처링 할당의 대상이 될 수 있음
+      const [a, ...rest] = setOf;
+      console.log(a, rest); //1 (2) [2, 3]
+
+      //Set 객체는 요소의 순서에 의미를 갖지 않지만 Set 객체를 순회하는 순서는 요소가 추가된 순서를 따름
+
+      /*
+      
+          Set(3) {1, 2, 3}
+          Set(3) {1, 2, 3}
+          Set(3) {1, 2, 3}
+      */
+
+      //
+    </script>
+  </body>
+</html>
