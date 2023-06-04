@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>map과 forEach</title>
+  </head>
+  <body>
+    <script>
+      let arr = [1, 3, 4, 7, 8, 9];
+      //배열의 요소의 값을 2배로 증가시키기
+      let sum = 0;
+
+      //map 함수
+      //각 요소를 순회하면서, 함수를 실행
+      //생성된 값을 새 배열에 담음
+      let arrMap = arr.map((it) => it * 2);
+      console.log(arrMap); // [2, 6, 8, 14, 16, 18]
+
+      //forEach 함수
+      console.log(arr.forEach((it) => it * 2));
+      //undefined인 이유
+      //forEach는 아무것도 반환하지 않음 -> 최종적으로 undefined를 반환
+
+      //각 요소의 값의 합을 구하기
+    </script>
+  </body>
+</html>
+
+<!-- 
+map - 각 요소에서 함수를 실행한 후 새 배열을 만드는데 사용됨 
+forEach - 각 요소에 대해 배열의 각 요소에 대해 함수를 실행하지만
+아무것도반환하지 않음, 배열을 반복하는데 사용
+
+
+
+
+ -->
