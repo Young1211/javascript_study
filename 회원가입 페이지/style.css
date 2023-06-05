@@ -1,0 +1,78 @@
+/* css */
+
+* {
+  margin: 0;
+  padding: 0;
+  /* border: 0; */
+}
+
+body {
+  box-sizing: border-box;
+  width: 100%;
+  font-family: "Roboto", sans-serif;
+}
+
+h2 {
+  margin: 0 auto;
+  color: rgb(0, 0, 0);
+}
+
+h4 {
+  color: #979797;
+  font-weight: lighter;
+  font-size: 12px;
+}
+
+.login_container {
+  margin: 0 auto;
+  width: 100vw;
+  max-width: 500px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 40px;
+}
+
+.form-login {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+input {
+  padding: 10px;
+}
+
+.input_id,
+.input_pwd {
+  border: none;
+  border-bottom: 1px solid #cfcfcf;
+  color: #8d8d8d;
+}
+
+.input_pwd {
+}
+
+button {
+  border: none;
+  padding: 10px;
+  color: white;
+  background-color: cornflowerblue;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bolder;
+  box-shadow: 0 2px 4px rgb(4, 41, 110);
+}
+
+button:hover {
+  background-color: rgb(32, 64, 123);
+}
+
+/* 체크 박스 */
+span {
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+}
